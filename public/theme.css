@@ -1,0 +1,59 @@
+
+:root {
+  --color-gray-line: #ccc;
+  --color-gray-line-light: #ddd;
+  --color-gray-bg: #f5f5f5;
+  --color-dis: #666;
+  --color-dgr: #E43030;
+  --color-warn: #F8910D;
+  --color-suc: #00995E;
+  --color-info: #2067D5;
+
+  /* DEFAULT THEME(PURPLE) */
+  --color-primary: #6600BF;
+  --color-secondary: #8A5CEA;
+  --color-tertiary: #F6F2FF;
+  --color-accent: #C0066B;
+}
+
+[data-theme="purple"] {
+  --color-primary: #6600BF;
+  --color-secondary: #8A5CEA;
+  --color-tertiary: #F6F2FF;
+  --color-accent: #C0066B;
+}
+
+[data-theme="blue"] {
+  --color-primary: #2870FF;
+  --color-secondary: #3694FF;
+  --color-tertiary: #EEF8FF;
+  --color-accent: #ED6B00;
+}
+
+[data-theme="green"] {
+  --color-primary: #057734;
+  --color-secondary: #06A146;
+  --color-tertiary: #F0FFF6;
+  --color-accent: #FFD900;
+}
+
+[data-theme="navy"] {
+  --color-primary: #002454;
+  --color-secondary: #0A3F85;
+  --color-tertiary: #EFF6FF;
+  --color-accent: #38B218;
+}
+
+[data-theme="mint"] {
+  --color-primary: #268F87;
+  --color-secondary: #2FCFAF;
+  --color-tertiary: #F3FAF9;
+  --color-accent: #FFA552;
+}
+
+[data-theme="orange"] {
+  --color-primary: #E56C01;
+  --color-secondary: #FF973C;
+  --color-tertiary: #FFF8F3;
+  --color-accent: #003DAD;
+}

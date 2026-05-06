@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+/* reset.css */
+html {font-size: 20px;}
+*, *:before, *:after {-webkit-box-sizing: border-box; box-sizing: border-box;}
+body {margin: 0; padding: 0; font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 400; font-size: 0.8rem; color: #333; letter-spacing: -0.5px;}
+ul, ol, li, dl, dt, dd {margin: 0; padding: 0; list-style: none;}
+h1, h2, h3, h4, h5, h6 {margin: 0; padding: 0; font-weight: normal;}
+a {color: inherit; text-decoration: none;}
+img {margin: 0; padding: 0; line-height:0; vertical-align: middle; font-size: 0; border: 0;}
+table {width: 100%; border-collapse: separate; border-spacing: 0;}
+table td, table th{vertical-align: middle;}
+caption, legend {position: absolute; margin: -1px; padding: 0; width: 1px; height: 1px; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;}
+select, input, textarea {font-family: inherit; font-weight: 400; font-size: 0.8rem; color: #444;}
+select, input {vertical-align: middle;}
+address, em, i {font-style: normal;}
+button, input, optgroup, select, textarea {margin: 0; font-family: inherit; font-size: 100%; color: inherit;}
+button {background: none; border: 0; cursor: pointer;}
+hr {display: block; margin: 0; padding: 0; height: 0; border: none;}
+figure, figcaption, p {margin: 0; padding: 0;}
+form, fieldset {margin: 0; padding: 0; line-height: 1; border: none;}
+button, [type="button"], [type="reset"], [type="submit"] {-webkit-appearance: none; -moz-appearance: none; appearance: none;}
+header, footer, article, section, aside, nav, main {display: block;}
+small {font-size: 0.65rem;}
+sub, sup {position: relative; line-height: 0; vertical-align: baseline; font-size: 0.6rem;}
+sub {bottom: -0.25em;}
+sup {top: -0.5em;}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup, main,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
+b, strong {font: inherit;}
+
+.hidden {display: none;}
+.hid,
+.sr-only {position: absolute; margin: -1px; padding: 0; width: 1px; height: 1px; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;}
+.al {text-align:left !important;}
+.ac {text-align:center !important;}
+.ar {text-align:right !important;}
+.fl {float:left !important;}
+.fr {float:right !important;}
+.d_none{ display:none !important;}
+.clearfix {*zoom:1;}
+.clearfix:after {clear: both; display: block; content:'';}
+.blind{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+
+@media screen and (max-width: 1024px){ html {font-size: 19px;} }
+@media screen and (max-width: 768px){ html {font-size: 18px;} }
+@media screen and (max-width: 480px){ html {font-size: 17px;} }
