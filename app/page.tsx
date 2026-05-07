@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 type Mode = 'url' | 'batch' | 'figma';
 type Tab = 'html' | 'crawl' | 'ocr';
@@ -84,6 +84,8 @@ export default function HomePage() {
   const [figmaUrlError, setFigmaUrlError] = useState('');
   const [componentType, setComponentType] = useState('auto');
   const [variant, setVariant] = useState('auto');
+  const [figmaRetryCountdown, setFigmaRetryCountdown] = useState<number | null>(null);
+  const figmaShouldRetry = useRef(false);
 
   // Batch mode
   const [batchRows, setBatchRows] = useState<BatchRow[]>([
@@ -118,6 +120,24 @@ export default function HomePage() {
   const displayHtml = editMode ? editedHtml : markupHtml;
   const hasResult = !!markupHtml || !!crawledData;
   const hasOcr = (crawledData?.images ?? []).some(img => img.ocr_text);
+
+  useEffect(() => {
+    if (figmaRetryCountdown === null) return;
+    if (figmaRetryCountdown <= 0) {
+      setFigmaRetryCountdown(null);
+      figmaShouldRetry.current = true;
+      return;
+    }
+    const t = setTimeout(() => setFigmaRetryCountdown(c => (c ?? 1) - 1), 1000);
+    return () => clearTimeout(t);
+  }, [figmaRetryCountdown]);
+
+  useEffect(() => {
+    if (!figmaShouldRetry.current) return;
+    figmaShouldRetry.current = false;
+    handleFigmaMarkup();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [figmaRetryCountdown]);
 
   function resetResult() {
     setMarkupHtml('');
@@ -228,8 +248,18 @@ export default function HomePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: figmaUrl, component_type: componentType, variant }),
       });
-      const data = await res.json();
-      if (!res.ok) {
+      let data: any;
+      try {
+        data = await res.json();
+      } catch {
+        setError(res.status === 504 ? '서버 응답 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.' : `서버 오류가 발생했습니다. (${res.status})`);
+        return;
+      }
+      if (res.status === 429) {
+        const retryAfter: number = data.retryAfter ?? 60;
+        setError(data.detail ?? `Figma API 한도 초과. ${retryAfter}초 후 자동 재시도합니다.`);
+        setFigmaRetryCountdown(retryAfter);
+      } else if (!res.ok) {
         setError(data.detail ?? 'Figma 마크업 생성에 실패했습니다.');
       } else {
         setMarkupHtml(data.html ?? '');
@@ -503,6 +533,9 @@ export default function HomePage() {
         {error && (
           <div className="error-box">
             <div>{error}</div>
+            {figmaRetryCountdown !== null && (
+              <div className="retry-countdown">{figmaRetryCountdown}초 후 자동 재시도...</div>
+            )}
             {mode === 'url' && (
               <div className="fallback-selector">
                 <input
