@@ -256,9 +256,8 @@ export default function HomePage() {
         return;
       }
       if (res.status === 429) {
-        const retryAfter: number = data.retryAfter ?? 60;
-        setError(data.detail ?? `Figma API 한도 초과. ${retryAfter}초 후 자동 재시도합니다.`);
-        setFigmaRetryCountdown(retryAfter);
+        setError(data.detail ?? 'Figma API 요청 한도를 초과했습니다.');
+        if (data.retryAfter) setFigmaRetryCountdown(data.retryAfter);
       } else if (!res.ok) {
         setError(data.detail ?? 'Figma 마크업 생성에 실패했습니다.');
       } else {

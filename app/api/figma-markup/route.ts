@@ -12,6 +12,13 @@ export async function POST(req: NextRequest) {
     console.error('[figma-markup]', e);
     if (e.message?.startsWith('FIGMA_RATE_LIMIT:')) {
       const retryAfter: number = e.retryAfter ?? 60;
+      if (retryAfter > 300) {
+        const days = Math.ceil(retryAfter / 86400);
+        return NextResponse.json(
+          { detail: `Figma API 이미지 렌더링 할당량이 소진되었습니다. 약 ${days}일 후 초기화됩니다. Figma 플랜 업그레이드를 고려해주세요.`, retryAfter: null },
+          { status: 429 }
+        );
+      }
       return NextResponse.json(
         { detail: `Figma API 요청 한도를 초과했습니다. ${retryAfter}초 후 자동으로 재시도합니다.`, retryAfter },
         { status: 429 }
